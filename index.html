@@ -1,321 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AR Restaurant Menu</title>
 
-<script type="module"
-src="https://unpkg.com/@google/model-viewer@3.4.0/dist/model-viewer.min.js">
-</script>
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
 <style>
 
 body{
-font-family:Arial;
+font-family: Arial, sans-serif;
+background:#f5f5f5;
 margin:0;
-background:#f4f4f4;
+text-align:center;
 }
 
 /* HEADER */
-
-header{
-background:#111;
+.header{
+background:black;
 color:white;
-text-align:center;
-padding:25px;
+padding:20px;
 }
 
-header img{
-height:80px;
+.header img{
+width:80px;
+display:block;
+margin:auto;
 }
 
-header p{
-font-weight:bold;
-font-size:20px;
-margin:5px;
-}
-
-/* INSTRUCTION */
-
-.intro{
-text-align:center;
-padding:15px;
-font-size:17px;
-font-weight:bold;
-background:#eee;
-}
-
-/* CATEGORY */
-
-.category{
-text-align:center;
-margin-top:30px;
+.header h1{
+margin:10px 0 5px;
 font-size:22px;
+}
+
+.header p{
 font-weight:bold;
+}
+
+/* SECTION TITLE */
+.section-title{
+margin-top:30px;
+font-size:20px;
 }
 
 /* MENU GRID */
-
 .menu{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,260px));
 justify-content:center;
 gap:25px;
 padding:30px;
-max-width:1000px;
-margin:auto;
 }
 
 /* CARD */
-
 .card{
 background:white;
 border-radius:12px;
-box-shadow:0 8px 20px rgba(0,0,0,0.15);
-cursor:pointer;
-transition:0.35s;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
 overflow:hidden;
+transition:0.3s;
 }
 
 .card:hover{
-transform:translateY(-6px);
-box-shadow:0 15px 30px rgba(0,0,0,0.25);
+transform:translateY(-5px);
 }
 
-/* IMAGE */
-
+/* IMAGE FIX (FINAL) */
 .card img{
 width:100%;
 height:120px;
 object-fit:contain;
-padding:12px;
 display:block;
 margin:auto;
+padding:10px;
+
+/* REMOVE WHITE BOX EFFECT */
+background:transparent;
+mix-blend-mode:multiply;
 }
 
 /* CONTENT */
-
 .card-content{
-text-align:center;
 padding:10px;
+}
+
+.card h3{
+margin:10px 0 5px;
 }
 
 .price{
 font-weight:bold;
-margin-bottom:8px;
+margin-bottom:10px;
 }
 
 /* BUTTON */
-
-.ar-btn{
-display:inline-block;
+button{
 background:#ff5722;
 color:white;
+border:none;
 padding:8px 16px;
 border-radius:6px;
-font-weight:bold;
-font-size:14px;
+cursor:pointer;
 }
 
-/* VIEWER */
+button:hover{
+background:#e64a19;
+}
 
-.viewer{
+/* MODAL */
+.modal{
+display:none;
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.85);
-display:none;
-align-items:center;
+background:rgba(0,0,0,0.7);
 justify-content:center;
+align-items:center;
+z-index:1000;
 }
 
-.viewer-box{
+.modal-content{
 background:white;
 padding:20px;
 border-radius:10px;
 width:90%;
-max-width:500px;
-text-align:center;
+max-width:400px;
 }
 
 model-viewer{
 width:100%;
-height:320px;
-background:#eee;
-border-radius:10px;
+height:300px;
 }
 
-/* CLOSE */
-
-.close-btn{
-margin-top:15px;
-padding:10px 18px;
-border:none;
+.close{
+margin-top:10px;
 background:black;
-color:white;
-border-radius:6px;
-cursor:pointer;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<header>
-
-<img src="italian.PNG">
-
-<h2>Italiano Cafe</h2>
-
-<p>AR Smart Menu</p>
-
-</header>
-
-<div class="intro">
-
-Tap any item → View it in Augmented Reality → Place it on your table
-
+<!-- HEADER -->
+<div class="header">
+<img src="italian.png">
+<h1>Italiano Cafe</h1>
+<p><b>AR Smart Menu</b></p>
 </div>
+
+<p><b>Tap any item → View it in AR → Place it on your table</b></p>
 
 <!-- BURGER -->
-
-<div class="category">Burgers</div>
-
+<h2 class="section-title">Burgers</h2>
 <div class="menu">
-
-<div class="card" onclick="openViewer('burger.glb')">
-
+<div class="card">
 <img src="burger.png">
-
 <div class="card-content">
-
 <h3>Deluxe Burger</h3>
 <p class="price">850 PKR</p>
-
-<div class="ar-btn">View in AR</div>
-
+<button onclick="openAR('burger.glb')">View in AR</button>
 </div>
-
 </div>
-
 </div>
 
 <!-- PIZZA -->
-
-<div class="category">Pizza</div>
-
+<h2 class="section-title">Pizza</h2>
 <div class="menu">
-
-<div class="card" onclick="openViewer('pizza.glb')">
-
+<div class="card">
 <img src="pizza.png">
-
 <div class="card-content">
-
 <h3>Italian Pizza</h3>
 <p class="price">1200 PKR</p>
-
-<div class="ar-btn">View in AR</div>
-
+<button onclick="openAR('pizza.glb')">View in AR</button>
+</div>
+</div>
 </div>
 
-</div>
-
-</div>
-
-<!-- DRINKS -->
-
-<div class="category">Drinks</div>
-
+<!-- DRINK -->
+<h2 class="section-title">Drinks</h2>
 <div class="menu">
-
-<div class="card" onclick="openViewer('coffee.glb')">
-
+<div class="card">
 <img src="coffee.png">
-
 <div class="card-content">
-
 <h3>Cappuccino Coffee</h3>
 <p class="price">500 PKR</p>
-
-<div class="ar-btn">View in AR</div>
-
+<button onclick="openAR('coffee.glb')">View in AR</button>
 </div>
-
 </div>
-
 </div>
 
 <!-- DESSERT -->
-
-<div class="category">Desserts</div>
-
+<h2 class="section-title">Desserts</h2>
 <div class="menu">
-
-<div class="card" onclick="openViewer('cake.glb')">
-
+<div class="card">
 <img src="dessert.png">
-
 <div class="card-content">
-
 <h3>Chocolate Dessert</h3>
 <p class="price">650 PKR</p>
-
-<div class="ar-btn">View in AR</div>
-
+<button onclick="openAR('cake.glb')">View in AR</button>
+</div>
+</div>
 </div>
 
-</div>
+<!-- MODAL -->
+<div class="modal" id="modal">
+<div class="modal-content">
 
-</div>
-
-<!-- AR VIEWER -->
-
-<div class="viewer" id="viewer">
-
-<div class="viewer-box">
-
-<model-viewer
-id="modelViewer"
-src="burger.glb"
+<model-viewer id="viewer"
 ar
+ar-modes="scene-viewer webxr quick-look"
 camera-controls
 auto-rotate
-shadow-intensity="1"
-ar-modes="scene-viewer webxr quick-look">
+shadow-intensity="1">
 </model-viewer>
 
-<button class="close-btn" onclick="closeViewer()">Close</button>
+<button class="close" onclick="closeAR()">Close</button>
 
 </div>
-
 </div>
 
 <script>
 
-function openViewer(model){
-
-document.getElementById("viewer").style.display="flex"
-document.getElementById("modelViewer").src=model
-
+function openAR(model){
+document.getElementById("viewer").src = model;
+document.getElementById("modal").style.display = "flex";
 }
 
-function closeViewer(){
-
-document.getElementById("viewer").style.display="none"
-
+function closeAR(){
+document.getElementById("modal").style.display = "none";
 }
 
 </script>
 
 </body>
-
 </html>
